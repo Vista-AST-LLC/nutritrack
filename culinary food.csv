@@ -1,0 +1,35 @@
+SN,Item Name,Portion Size,Calories,Protein (g),Protein (%DV),Sodium (mg),Sodium (%DV),Fats (g),Fats (%DV),Carbohydrates (g),Carbohydrates (%DV),Fiber (g),Fiber (%DV),Cholesterol (mg),Cholesterol (%DV),meal type,code
+1,Milk,1 cup,122,8.1,16.20%,115,5%,4.8,6%,12,4%,0,0%,20,7%,Breakfast,b002
+2,Omelettes,2 eggs,221,14,28%,365,16%,17,22%,1,0%,0.1,0%,427,142%,Breakfast,b004
+3,Frosted Flakes,1 cup,155,1.7,3.40%,197,9%,0.7,1%,37,13%,0.9,3%,0,0%,Breakfast,b006
+4,Bagel,1 medium,277,11,22%,443,19%,1.4,2%,55,20%,1.7,6%,0,0%,Breakfast,b008
+5,Oatmeal,1 cup,166,5.9,11.80%,9.4,0%,3.6,5%,28,10%,4,14%,0,0%,Breakfast,b009
+6,Pancakes,1- 6 inches wide,350,9.8,8%,676,15%,15,10%,44,8%,0,0%,90,15%,Breakfast,b011
+7, Waffles,17 inches wide,218,6,8%,383,17%,11,14%,25,9%,0,0%,52,17%,Breakfast,b015
+8,Sausage,14 inches long,210,8.1,16.20%,562,24%,19,24%,0.6,0%,0,0%,41,145,Breakfast,b016
+9,Avocado Toast,1 slice,189,3.8,7.60%,439,19%,11,14%,20,7%,5.4,19%,0,0%,lunch,b020
+10,Cheese Burger,1 burger,535,30,60%,1176,51%,29,37%,39,14%,2.4,9%,96,32%,lunch,l010
+11,Ramen ,1 bowl,954,48,96%,2691,117%,35,45%,111,40%,6,21%,227,76%,lunch,l011
+12,Submarine Sandwich,1 sandwich,890,53,106%,1594,69%,42,54%,69,25%,2.8,10%,168,56%,lunch,l012
+13,Burritos,1 burrito,434,17,34%,1087,47%,16,21%,56,20%,8.9,32%,29,10%,lunch,l015
+14,Tacos,1 taco,210,9.4,18.80%,571,25%,9.9,13%,21,8%,3,11%,26,9%,lunch,l019
+15,Chili,1 bowl,566,36,72%,1973,86%,34,44%,29,11%,2.4,9%,101,34%,Dinner,l020
+16,Cobb Salad,1 bowl,688,43,83%,1233,54%,51,65%,14,5%,4.5,16%,302,101%,Dinner,l006
+17,Chicken Noodle Soup ,1 bowl ,119,5.8,11.60%,1662,72%,3.8,5%,15,5%,2.5,9%,20,7%,Dinner,l003
+18,Pasta,1 cup,196,7.2,14.40%,1.2,0%,1.2,2%,38,14%,2.2,8.80%,0,0%,Dinner,l002
+19,Rice,1 cup,205,4.33,8.60%,1.6,0%,0.4,1%,45,16%,0.6,2%,0,0%,lunch,d013
+20,Salmon ,1 fillet,468,50,100%,138,6%,28,36%,0,0%,0,0%,143,48%,Dinner,d013
+21,Cheese Pizza,1 slice,452,19,38%,1017,44%,16,21%,57,21%,3.9,14%,29,10%,Dinner,d006
+22,Pepperoni Pizza,1 slice ,313,13,26%,760,33%,13,17%,35,13%,2.6,9%,28,9%,Dinner,d007
+23,Cheese Burger,1 burger,535,30,60%,1176,51%,29,37%,39,14%,2.4,9%,96,32%,Dinner,d009
+24,Spaghetti & Meatballs ,2 cups,801,33,66%,1335,58%,30,38%,99,36%,9.7,35%,77,26%,Dinner,d012
+25,Pork Roast,1 cut,248,20,40%,58,3%,18,23%,0,0%,0,0%,77,26%,Dinner,d015
+26,Steak,1 serving,614,58,116%,115,5%,41,53%,0,0%,0,0%,214,71%,Dinner,d017
+27,Mashed Potatoes,1 cup,237,4,8%,699,30%,8.8,11%,36,13%,3.3,11%,21,1%,Dinner,d019
+28,Muffins,one serving,426,5,4%,383,14%,18,2%,61,5%,0.2,10%,34,2%,Fast Food,d005
+29,Pecan Pie,One slice,450,7,8%,479,10%,25,24%,62,23%,1,2%,66,22%,Fast Food,d003
+30,Key Lime Pie,one slice,330,2,5%,115,14%,15,32%,38,20%,1,4%,30,25%,Fast Food,d018
+31,Strawberry Shortcake,one serving,200,3,2%,143,2%,11,41%,26,26%,1,4%,25,40%,Fast food,B013
+32,S'mores,One serving,190,2,4%,78,13%,4,9%,30,10%,1,4%,3.7,7%,Fast Food,b018
+33,Red Velvet Cake,one slice,410,3,6%,240,10%,19,24%,57,21%,1,4%,45,15%,Fast Food,b014
+34,Peach Cobbler,one serving,311,3.3,7%,160,7%,15.4,24%,42,14%,1.1,4%,64,21%,Fast Food,b019
