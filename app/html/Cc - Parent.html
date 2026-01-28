@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/styles.css">
+    <title>Nutrition Tracker</title>
+    <meta name="description" content="Track your daily nutrition intake with our comprehensive nutrition tracker">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <script src="../js/functionality.js" defer></script>
+</head>
+
+<!--Make UI/UX as easy as possible (Imagine you are a Middle School/High School Student)-->
+
+<body>
+    <!-- Skip link for keyboard users -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Welcome Screen 1 -->
+    <div class="welcome-screen" id="welcomeScreen">
+        <div class="welcome-logo" aria-hidden="true">🍽️</div>
+        <h1 class="welcome-title">Welcome to Culinary Cart</h1>
+        <p class="welcome-subtitle">Your personalized nutrition tracking companion</p>
+        <button class="welcome-btn" id="welcomeNextBtn">
+            Get Started <span aria-hidden="true">→</span>
+        </button>
+    </div>
+
+    <!-- Welcome Screen 2 - Demographics -->
+    <div class="welcome-screen-2 hidden" id="demographicsScreen">
+        <div class="demographics-form">
+            <h2 class="demographics-title">Tell Us About Yourself</h2>
+
+            <div class="form-group">
+                <label class="form-label" for="ageGroup">Select Your Age Group</label>
+                <select id="ageGroup" class="age-group-select" aria-required="true">
+                    <option value="">-- Select Age Group --</option>
+                    <option value="9-13">9-13 years</option>
+                    <option value="14-18">14-18 years</option>
+                </select>
+            </div>
+
+            <button class="start-btn" id="startBtn" disabled>Start Tracking</button>
+            <button class="back-btn" id="backBtn"><span aria-hidden="true">←</span> Back</button>
+        </div>
+    </div>
+
+    <!-- Main Application (hidden initially) -->
+    <div class="container hidden" id="mainApp">
+        <!-- Profile Section -->
+        <div class="profile-section">
+            <div class="profile-info">
+                <div class="profile-avatar" id="profileAvatar">U</div>
+                <div class="profile-details">
+                    <h2 id="profileName">User Profile</h2>
+                    <p id="profileDetails">Select your age group to get started</p>
+                </div>
+            </div>
+            <button class="change-profile-btn" id="changeProfileBtn">Change Profile</button>
+        </div>
+
+        <header>
+            <h1>🍎 Nutrition Tracker</h1>
+            <div class="subtitle">Track your daily nutrition intake with ease</div>
+            <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="instructionsPanel">
+                <span aria-hidden="true">☰</span> Instructions
+            </button>
+        </header>
+
+        <div class="overlay" id="overlay"></div>
+        <!--INSTRUCTIONS SIDEBAR-->
+        <div class="instructions-panel" id="instructionsPanel" role="dialog" aria-labelledby="panel-title"
+            aria-modal="true">
+            <div class="panel-header">
+                <h2 class="panel-title" id="panel-title">Instructions</h2>
+                <button class="close-btn" id="closeBtn" aria-label="Close instructions">×</button>
+            </div>
+            <div class="instructions-content">
+                <h3>Getting Started</h3>
+                <p>Welcome to the Nutrition Tracker! Follow these steps to track your nutrition:</p>
+
+                <h3>1. Upload Your Data</h3>
+                <p>Start by uploading a CSV file containing your nutrition data:</p>
+                <ul>
+                    <li>Click the "Choose CSV File" button</li>
+                    <li>Select your nutrition data file</li>
+                    <li>The file should contain columns for food codes, names, and nutritional values</li>
+                </ul>
+
+                <h3>2. Add Food Items</h3>
+                <p>Once your data is loaded, you can add food items by:</p>
+                <ul>
+                    <li>Entering the food code in the input field (e.g., <code>B1</code>, <code>L20</code>,
+                        <code>D40</code>, <code>F60</code>)
+                    </li>
+                    <li>Clicking the "Add Food" button or pressing Enter</li>
+                    <li>Food items will automatically be categorized by meal type</li>
+                    <li>Duplicate items are not allowed - you'll receive a warning</li>
+                    <li>Invalid codes will be cleared from the input field</li>
+                </ul>
+
+                <h3>3. View Your Food Items</h3>
+                <p>Your added food items will appear in the appropriate categories:</p>
+                <ul>
+                    <li><strong>Breakfast</strong> - Morning meals</li>
+                    <li><strong>Lunch</strong> - Midday meals</li>
+                    <li><strong>Dinner</strong> - Evening meals</li>
+                    <li><strong>Dessert</strong> - Sweet treats and desserts</li>
+                </ul>
+
+                <h3>4. Monitor Nutrition Summary</h3>
+                <p>The Nutrition Summary shows your daily totals compared to recommended values:</p>
+                <ul>
+                    <li>Total calories consumed</li>
+                    <li>Macronutrients (protein, carbs, fats)</li>
+                    <li>Micronutrients and other components</li>
+                </ul>
+
+                <h3>5. Check Your Health Score</h3>
+                <p>Your Health Score is calculated based on how well your nutrition aligns with daily recommendations:
+                </p>
+                <ul>
+                    <li>Green score (80-100): Excellent nutrition</li>
+                    <li>Orange score (60-79): Good nutrition</li>
+                    <li>Red score (0-59): Needs improvement</li>
+                </ul>
+
+                <h3>Additional Features</h3>
+                <ul>
+                    <li>Use "Show/Hide Data Table" to view all available food items</li>
+                    <li>Remove individual food items with the "Remove" button</li>
+                    <li>Reset categories or CSV data using the respective reset buttons</li>
+                    <li>Your data is automatically saved between sessions</li>
+                </ul>
+
+                <h3>Tips for Success</h3>
+                <p>For best results:</p>
+                <ul>
+                    <li>Track all meals and snacks throughout the day</li>
+                    <li>Pay attention to portion sizes</li>
+                    <li>Aim for a balanced Health Score</li>
+                    <li>Use the data to make informed food choices</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Two column section begins here -->
+        <main id="main-content">
+            <div class="main-content">
+                <div class="left-column">
+
+                    <div class="card">
+                        <h2 class="card-title">Add Food Items</h2>
+                        <div class="input-section">
+                            <input type="text" id="foodCode" class="code-input"
+                                placeholder="Enter food code (e.g., B1, L20, D40, F60)" aria-describedby="codeHelp">
+                            <button id="addFoodBtn" class="add-btn">Add Food</button>
+                        </div>
+                        <div id="codeHelp" class="error-message hidden" aria-live="polite"></div>
+                        <button id="toggleTableBtn" class="toggle-btn">📋 Show/Hide Data Table</button>
+                        <div id="tableContainer" class="table-container">
+                            <div class="virtual-scroll-container">
+                                <table id="nutritionTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Reference #</th>
+                                            <th>Name</th>
+                                            <th>Portion Size</th>
+                                            <th>Calories</th>
+                                            <th>Protein (g)</th>
+                                            <th>Protein (%DV)</th>
+                                            <th>Sodium (mg)</th>
+                                            <th>Sodium (%DV)</th>
+                                            <th>Fats (g)</th>
+                                            <th>Fats (%DV)</th>
+                                            <th>Carbs (g)</th>
+                                            <th>Carbs (%DV)</th>
+                                            <th>Fiber (g)</th>
+                                            <th>Fiber (%DV)</th>
+                                            <th>Cholesterol (mg)</th>
+                                            <th>Cholesterol (%DV)</th>
+                                            <th>Saturdated Fat (g)</th>
+                                            <th>Saturdated Fat (%DV)</th>
+                                            <th>Trans Fat (g)</th>
+                                            <th>Trans Fat (%DV)</th>
+                                            <th>Total Sugars (g)</th>
+                                            <th>Total Sugars (%DV)</th>
+                                            <th>Meal Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tableBody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h2 class="card-title">📊 Nutrition Summary</h2>
+
+                        <!-- NEW Nutrition Progress Table -->
+                        <table class="nutrition-progress-table">
+                            <thead>
+                                <tr>
+                                    <th>Nutrient</th>
+                                    <th>Your Intake</th>
+                                    <th>Daily Goal</th>
+                                    <th>Progress</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Calories</td>
+                                    <td id="progressCalories">0 kcal</td>
+                                    <td id="goalCalories">-</td>
+                                    <td>
+                                        <div class="progress-bar">
+                                            <div id="caloriesProgress" class="progress-fill" style="width: 0%"></div>
+                                        </div>
+                                    </td>
+                                    <td id="caloriesStatus" class="status-optimal">-</td>
+                                </tr>
+                                <tr>
+                                    <td>Protein</td>
+                                    <td id="progressProtein">0g</td>
+                                    <td id="goalProtein">-</td>
+                                    <td>
+                                        <div class="progress-bar">
+                                            <div id="proteinProgress" class="progress-fill" style="width: 0%"></div>
+                                        </div>
+                                    </td>
+                                    <td id="proteinStatus" class="status-optimal">-</td>
+                                </tr>
+                                <tr>
+                                    <td>Carbohydrates</td>
+                                    <td id="progressCarbs">0g</td>
+                                    <td id="goalCarbs">-</td>
+                                    <td>
+                                        <div class="progress-bar">
+                                            <div id="carbsProgress" class="progress-fill" style="width: 0%"></div>
+                                        </div>
+                                    </td>
+                                    <td id="carbsStatus" class="status-optimal">-</td>
+                                </tr>
+                                <tr>
+                                    <td>Fiber</td>
+                                    <td id="progressFiber">0g</td>
+                                    <td id="goalFiber">-</td>
+                                    <td>
+                                        <div class="progress-bar">
+                                            <div id="fiberProgress" class="progress-fill" style="width: 0%"></div>
+                                        </div>
+                                    </td>
+                                    <td id="fiberStatus" class="status-optimal">-</td>
+                                </tr>
+                                <tr>
+                                    <td>Sodium</td>
+                                    <td id="progressSodium">0mg</td>
+                                    <td id="goalSodium">-</td>
+                                    <td>
+                                        <div class="progress-bar">
+                                            <div id="sodiumProgress" class="progress-fill" style="width: 0%"></div>
+                                        </div>
+                                    </td>
+                                    <td id="sodiumStatus" class="status-optimal">-</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Age-Specific Requirements Table -->
+                        <h3 style="margin: 20px 0 10px;">Age Specific Requirements</h3>
+                        <table class="requirements-table">
+                            <thead>
+                                <tr>
+                                    <th>Age Group</th>
+                                    <th>Calories (kcal/day)</th>
+                                    <th>Sodium (mg/day, max)</th>
+                                    <th>Cholesterol (mg/day, max)*</th>
+                                    <th>Carbohydrate (g/day)**</th>
+                                    <th>Protein (g/day, min)</th>
+                                    <th>Fiber (g/day, goal)</th>
+                                    <th>Total fat (% of kcal)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="requirementsBody">
+                                <!-- Will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+
+                        <div class="summary-grid">
+                            <div class="summary-card calories-card">
+                                <div class="summary-label">Total Calories</div>
+                                <div id="totalCalories" class="summary-value">0</div>
+                                <div class="summary-label">kcal</div>
+                            </div>
+                            <div class="summary-card protein-card">
+                                <div class="summary-label">Total Protein</div>
+                                <div id="totalProtein" class="summary-value">0</div>
+                                <div class="summary-label">grams</div>
+                            </div>
+                            <div class="summary-card carbs-card">
+                                <div class="summary-label">Total Carbs</div>
+                                <div id="totalCarbs" class="summary-value">0</div>
+                                <div class="summary-label">grams</div>
+                            </div>
+                            <div class="summary-card fats-card">
+                                <div class="summary-label">Total Fats</div>
+                                <div id="totalFats" class="summary-value">0</div>
+                                <div class="summary-label">grams</div>
+                            </div>
+                            <div class="summary-card sodium-card">
+                                <div class="summary-label">Total Sodium</div>
+                                <div id="totalSodium" class="summary-value">0</div>
+                                <div class="summary-label">mg</div>
+                            </div>
+                            <div class="summary-card fiber-card">
+                                <div class="summary-label">Total Fiber</div>
+                                <div id="totalFiber" class="summary-value">0</div>
+                                <div class="summary-label">grams</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Citations Section -->
+                    <div class="citations-section">
+                        <h3 class="citations-title">📚 Data Sources & Citations</h3>
+                        <div class="citations-content">
+                            <div class="citation-item">
+                                <span class="citation-number">1.</span> Dietary Guidelines for Americans, 2020–2025.
+                                U.S. Department of Agriculture and U.S. Department of Health and Human Services. 9th
+                                Edition. December 2020. Available at: https://www.dietaryguidelines.gov
+                            </div>
+                            <div class="citation-item">
+                                <span class="citation-number">2.</span> Appendix E‑3 tables (nutrient goals by age).
+                                U.S. Department of Agriculture and U.S. Department of Health and Human Services.
+                                2015–2020 Dietary Guidelines technical document.
+                            </div>
+                            <div class="citation-item">
+                                <span class="citation-number">3.</span> FDA – Daily Values for Nutrition Facts label.
+                                U.S. Food and Drug Administration. (Updated 2024.)
+                                https://www.fda.gov/food/nutrition-facts-label/daily-value-nutrition-and-supplement-facts-labels
+                            </div>
+                            <div class="citation-item">
+                                <span class="citation-number">4.</span> FDA – Key Nutrients and Your Family's Health
+                                (kids and teens). U.S. Food and Drug Administration.
+                                https://www.fda.gov/media/135619/download
+                            </div>
+                            <div class="citation-item">
+                                <span class="citation-number">5.</span> Dietary Reference Intakes for individuals 4–18
+                                years. Institute of Medicine (National Academy of Medicine).
+                            </div>
+                            <div class="citation-item">
+                                <span class="citation-number">6.</span> American Heart Association – Dietary
+                                Recommendations for Healthy Children. (Updated 2024.)
+                                https://www.heart.org/en/healthy-living/healthy-eating/eat-smart/nutrition-basics/dietary-recommendations-for-healthy-children
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CSV Upload Section -->
+                    <div class="card">
+                        <h2 class="card-title">
+                            Upload Your Data
+                            <button id="resetCsvBtn" class="reset-btn">Reset CSV</button>
+                        </h2>
+                        <div class="upload-section">
+                            <div class="file-input-wrapper">
+                                <input type="file" id="csvFile" accept=".csv" class="file-input"
+                                    aria-describedby="fileHelp">
+                                <label for="csvFile" class="file-label">📁 Choose CSV File</label>
+                            </div>
+                            <div id="selectedFileName" class="selected-file">No file selected</div>
+                            <div id="fileHelp" class="error-message hidden" aria-live="polite"></div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="right-column">
+                    <div class="card">
+                        <h2 class="card-title">
+                            Your Food Items
+                            <button id="resetCategoriesBtn" class="reset-btn">Reset Categories</button>
+                        </h2>
+                        <div class="category-section">
+                            <div class="category-box breakfast-box">
+                                <div class="category-title">
+                                    <span>🍳 Breakfast</span>
+                                    <span id="breakfastCount">0 items</span>
+                                </div>
+                                <div id="breakfastItems" class="category-items"></div>
+                            </div>
+
+                            <div class="category-box lunch-box">
+                                <div class="category-title">
+                                    <span>🥪 Lunch</span>
+                                    <span id="lunchCount">0 items</span>
+                                </div>
+                                <div id="lunchItems" class="category-items"></div>
+                            </div>
+
+                            <div class="category-box dinner-box">
+                                <div class="category-title">
+                                    <span>🍽️ Dinner</span>
+                                    <span id="dinnerCount">0 items</span>
+                                </div>
+                                <div id="dinnerItems" class="category-items"></div>
+                            </div>
+
+                            <div class="category-box dessert-box">
+                                <div class="category-title">
+                                    <span>🍰 Dessert</span>
+                                    <span id="dessertCount">0 items</span>
+                                </div>
+                                <div id="dessertItems" class="category-items"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h2 class="card-title">🏆 Health Score</h2>
+                        <div class="summary-card points-card">
+                            <div class="points-display">
+                                <div class="points-circle" id="pointsCircle">0</div>
+                                <div class="points-label">Health Score</div>
+                                <div class="points-description">Based on your age group requirements</div>
+                            </div>
+                            <div class="points-breakdown">
+                                <div class="points-item">
+                                    <div class="points-nutrient">Protein</div>
+                                    <div class="points-bar-container">
+                                        <div id="proteinBar" class="points-bar positive" style="width: 0%"></div>
+                                    </div>
+                                    <div id="proteinScore" class="points-score">0</div>
+                                </div>
+                                <div class="points-item">
+                                    <div class="points-nutrient">Carbs</div>
+                                    <div class="points-bar-container">
+                                        <div id="carbsBar" class="points-bar positive" style="width: 0%"></div>
+                                    </div>
+                                    <div id="carbsScore" class="points-score">0</div>
+                                </div>
+                                <div class="points-item">
+                                    <div class="points-nutrient">Fiber</div>
+                                    <div class="points-bar-container">
+                                        <div id="fiberBar" class="points-bar positive" style="width: 0%"></div>
+                                    </div>
+                                    <div id="fiberScore" class="points-score">0</div>
+                                </div>
+                                <div class="points-item">
+                                    <div class="points-nutrient">Sodium</div>
+                                    <div class="points-bar-container">
+                                        <div id="sodiumBar" class="points-bar negative" style="width: 0%"></div>
+                                    </div>
+                                    <div id="sodiumScore" class="points-score">0</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Scoring Explanation Section -->
+                    <div class="scoring-explanation">
+                        <h3 class="scoring-title">📈 How Your Health Score is Calculated</h3>
+                        <div class="scoring-grid">
+                            <div class="scoring-category scoring-optimal">
+                                <h4>Scoring System (0-100 points)</h4>
+                                <p><strong>80-100 points (Green):</strong> Excellent nutrition! You're meeting or
+                                    exceeding most recommendations.</p>
+                                <p><strong>60-79 points (Orange):</strong> Good nutrition, with some areas for
+                                    improvement.</p>
+                                <p><strong>0-59 points (Red):</strong> Needs improvement in several nutritional areas.
+                                </p>
+                            </div>
+                            <div class="scoring-category scoring-warning">
+                                <h4>How to Improve Your Score</h4>
+                                <ul>
+                                    <li><strong>Increase Protein:</strong> Add lean meats, beans, dairy</li>
+                                    <li><strong>Reduce Sodium:</strong> Choose fresh foods over processed</li>
+                                    <li><strong>Boost Fiber:</strong> Add fruits, vegetables, whole grains</li>
+                                    <li><strong>Balance Carbs:</strong> Choose complex carbs over simple sugars</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div id="loading" class="card loading hidden">
+                <span class="loading-spinner" aria-hidden="true"></span> Loading and processing your nutrition data...
+            </div>
+
+            <div id="message" class="hidden" role="alert" aria-live="polite"></div>
+        </main>
+    </div>
+</body>
+
+</html>
